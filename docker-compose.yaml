@@ -1,0 +1,77 @@
+# Use root/example as user/password credentials
+
+services:
+ 
+  data-base:
+    image: mysql:latest
+    container_name: mysql_container
+    restart: always
+    environment:
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_PASSWORD_FILE=/run/secrets/db_password
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db_root_password
+
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+    secrets:
+      - db_password
+      - db_root_password
+       
+    networks:
+      - project_network
+
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u ${MYSQL_USER} -pqwerty123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  blog:
+    build: 
+      context: ./baked_blog-main
+    command: > 
+      sh -c "python manage.py makemigrations &&
+              python manage.py migrate &&
+              python manage.py loaddata initial_data.json &&
+              python manage.py runserver 0.0.0.0:8000"
+
+    image: jakubharan/baked_blog:1
+    container_name: baked_blog
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - IS_DEV=${IS_DEV}
+      - DB_HOST=data-base
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - DB_PASSWORD_FILE=/run/secrets/db_password
+    
+    secrets:
+    - db_password
+
+    depends_on:
+      data-base:
+        condition: service_healthy
+
+    networks:
+      - project_network
+
+   
+
+
+networks:
+  project_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+
+secrets:
+  db_password:
+    file: ./database_password.txt
+
+  db_root_password:
+    file: ./database_root_password.txt

@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock  %}</title>
+    <link rel="icon"  href="{% static "images/fav.webp" %} ">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "base.css" %}">    
+{% block style %}{% endblock  %}
+</head>
+<body>
+    <header>
+       
+        <div class="baner"></div>
+        <nav class="main-nav">
+            <a class="nav-el" href="{% url "main_page" %}"  >O mnie</a>
+            <a class="nav-el" href="{% url "all_posts" %}"  >Przepisy</a>
+            <a class="nav-el" href="{% url "contact" %}" >Kontakt</a>
+            {% if user.is_authenticated  %}
+            <form action="{% url "logout" %}" method="POST" >
+                {% csrf_token %}
+                <input type="hidden" name="next" value={{request.path}}>
+                <button class=" nav-el" >Wyloguj</button>    
+            </form>
+            {% else %}
+                <a class=" nav-el" href="{% url "login" %}" >Logowanie</a>
+            {% endif %}
+            
+            <a class=" nav-el" href="{% url "registration" %}" >Rejestracja</a>
+           
+
+        </nav>
+
+    </header>
+    {% block content %}{% endblock  %}
+</body>
+</html>

@@ -1,0 +1,51 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block title %} BAKED {% endblock  %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static "blog/index.css" %}">
+{% endblock %}
+
+{% block content %}
+
+
+<section class="about-me">
+    <div class="text">
+        <h2>O mnie</h2>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae odio quam consectetur magnam unde laboriosam, nobis, repudiandae culpa nesciunt dolore autem sed tempora animi incidunt dolorem iste! Placeat ipsum harum ex dignissimos molestias iusto. Quaerat aliquam maiores ipsam hic accusantium excepturi? Impedit voluptatibus ratione nulla nisi rem sed voluptas veniam?</p>
+        
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus ullam fugit magnam soluta aliquam illo, ipsa, aperiam nam ea dolor magni? Soluta recusandae corrupti eos aperiam harum accusamus at cupiditate debitis a facere ipsam delectus iusto, possimus fuga explicabo, iste ut est non, qui necessitatibus. Eos numquam dicta, accusantium corporis, dolore optio illo asperiores sunt nobis quasi culpa eaque sit.</p>
+       
+    </div>
+   
+        <img src="{% static "blog/images/index/about-me.webp" %}" alt="">
+    
+</section>
+
+{% include "blog/includes/posts.html" %}
+
+<section class="second-baner"></section> 
+ <section class="random-post">
+    <a href="" class="link"></a>
+    <h2>Losowy strzał</h2>
+    <div class="description">
+        <img src="{{random_post.image.url}}" alt="{{random_post.title}}">
+        <div class="text">
+        <h3>{{random_post.title}}</h3>
+        <p>{{random_post.excerpt}}</p>
+    </div>
+    </div>
+    {% if last_comment %}
+        <div class="comments">
+            <div class="comment">
+                <p class="user-name">{{last_comment.user}}</p>
+                <p class="comment-content">{{last_comment.content}}</p>
+            
+            </div>
+        </div>
+    {% endif %}
+</section> 
+
+{% endblock  %}
+

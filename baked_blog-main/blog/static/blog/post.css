@@ -1,0 +1,153 @@
+.breadcrumbs {
+    padding: 1rem .5rem;
+    margin-top: 1rem;
+    background-color: var(--primary-color);
+}
+
+.head_post {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: var(--primary-color);
+}
+
+.head_post::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.head_post img,
+.ingredients,
+.recipe {
+    -webkit-box-shadow: var(--box-shadow);
+    -moz-box-shadow: var(--box-shadow);
+    box-shadow: var(--box-shadow);
+
+}
+
+
+.head_post img {
+    float: left;
+    width: 9rem;
+    border-radius: 25px;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+.head_post P {
+    margin-left: 1rem;
+}
+
+.ingredients {
+    background-color: var(--secondary-color);
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+.ingredients ol {
+    margin-left: 2rem;
+}
+
+.ingredients li {
+    margin-bottom: .5rem;
+}
+
+.post_body h2 {
+    margin-bottom: .5rem;
+}
+
+.recipe {
+    background-color: var(--secondary-color);
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.recipe p {
+    margin: 1rem 0;
+}
+
+.comment-section {
+    padding: 1rem;
+    background-color: var(--primary-color);
+}
+
+.comment-section h2 {
+    text-align: center;
+    margin: 2rem;
+}
+
+
+
+.form h3 {
+    text-align: center;
+}
+
+.form textarea {
+    min-height: 5rem;
+}
+
+
+
+@media (min-width: 570px) {
+    .form {
+        width: 90%;
+    }
+}
+
+@media (min-width:725px) {
+    .head_post img {
+        float: none;
+        width: 15rem;
+    }
+
+    .head_post {
+        display: flex;
+        align-items: center;
+    }
+
+    .ingredients ol {
+        margin-left: 3rem;
+    }
+
+    .ingredients li {
+        margin-bottom: .8rem;
+    }
+
+    .form {
+        width: 70%;
+    }
+
+    .comments {
+        width: 60%;
+    }
+}
+
+@media (min-width:900px) {
+    .form {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .form {
+        width: 40%;
+    }
+
+    .comments {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1800px) {
+    .form {
+        width: 35%;
+    }
+
+    .comment-section {
+        padding: 3rem;
+    }
+
+    .comments {
+        width: 45%;
+    }
+}

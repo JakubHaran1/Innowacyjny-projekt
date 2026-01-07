@@ -1,0 +1,35 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static "blog/includes/forms.css" %}">
+</head>
+<body>
+    <section class="login_section">
+        
+        <div class="login">
+            <div class="form">
+                <form action="{% url "login" %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value={{request.path}}>
+                    <div class="form-field">
+                        {{form.username.label_tag}}
+                        {{form.username}}
+                        {{form.username.errors}}
+                    </div>
+                    <div class="form-field">
+                        {{form.password.label_tag}}
+                        {{form.password}}
+                        <a class="reset-password" href="{% url "reset_password_email" %}">Zapomniałem hasła</a>
+                        {{form.password.errors}}
+                    </div>
+                    <button class="btn" type="submit">Wyślij</button>
+                </form>
+            </div>
+            
+        </div>
+    </section>
+</body>
+</html>
