@@ -1,0 +1,52 @@
+name: Django Blog CI/CD
+
+on:
+  push:
+    branches: [ main ] # Uruchamia się przy wrzucaniu na main
+  pull_request:
+    branches: [ main ] # Uruchamia się przy robieniu Pull Requesta
+
+jobs:
+  # JOB 1: Testowanie (zawsze)
+  tests:
+    runs-on: ubuntu-latest
+    services:
+     
+      db:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: root_password
+          MYSQL_DATABASE: test_db
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install mysqlclient  # jeśli nie ma w requirements
+
+      - name: Run Django Tests
+        run: python manage.py test
+        env:
+          DB_HOST: 127.0.0.1
+          DB_NAME: test_db
+          DB_USER: root
+          DB_PASSWORD: root_password
+
+  # JOB 2: Budowanie i Push (tylko na MAIN)
+  build-and-push:
+    needs: tests 
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Logowanie do DockerHub
+        run: echo "Tu za chwilę dodamy logowanie i push obrazu (wymóg 4.5)"
