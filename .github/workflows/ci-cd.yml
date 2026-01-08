@@ -31,7 +31,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install -r ../backed_blog-main/requirements.txt
           pip install mysqlclient  # jeśli nie ma w requirements
 
       - name: Run Django Tests
