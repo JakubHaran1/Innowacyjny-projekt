@@ -37,7 +37,7 @@ services:
               python manage.py loaddata initial_data.json &&
               python manage.py runserver 0.0.0.0:8000"
 
-    image: jakubharan/baked_blog:1
+    image: zalphar/baked_blog:1
     container_name: baked_blog
     restart: unless-stopped
     ports:
