@@ -30,7 +30,7 @@ services:
 
   blog:
     build: 
-      context: ./baked_blog-main
+      context: baked_blog-main
     command: > 
       sh -c "python manage.py makemigrations &&
               python manage.py migrate &&
