@@ -31,7 +31,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r ./../../baked_blog-main/requirements.txt
+          pip install -r ../../baked_blog-main/requirements.txt
          
 
       - name: Run Django Tests
@@ -59,7 +59,7 @@ jobs:
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
-          file: ./../../baked_blog-main/Dockerfile
+          file: ../../baked_blog-main/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
